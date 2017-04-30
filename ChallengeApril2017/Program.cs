@@ -37,7 +37,7 @@ namespace ChallengeApril2017
 
         static void showHead()
         {
-            Console.Title = "NOMBRE DE VOYELLES";
+            Console.Title = "****** HOW MANY VOWELS AND CONSONANTS ******";
             Console.WriteLine("CHALLENGE NUMBER 1");
             Console.WriteLine("##################################################\n");
 
