@@ -11,9 +11,15 @@ namespace ChallengeApril2017
         static void Main(string[] args)
         {
             showHead();
-            Phrase somePhrase = new Phrase("salutation");
-            //Console.WriteLine("Tapez un mot ou une phrase ci-dessous ");
-            
+
+            Console.WriteLine("Tapez un mot ou une phrase ci-dessous ");
+            //user text will be yellow
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            string expression = Console.ReadLine();
+            Phrase somePhrase = new Phrase(expression);
+            Console.ResetColor();
+            somePhrase.showVowels();
+            somePhrase.showConsonant();
 
             showFoot();
         }

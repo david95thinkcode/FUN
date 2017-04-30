@@ -15,129 +15,140 @@ namespace ChallengeApril2017
         public char[] tabVowels = {'a','e','i','o','u','y' };
         public char[] tabConsonant = { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z' };
         /// <summary>
-        /// Contient chaque voyelle sans doublons contenu de la phrase et le nombre de fois trouvé
+        /// Contient chaque voyelle de la phrase 
         /// </summary>
-        public char[,] eachVowel = new char[2,6];
+        string[,] eachVowel;
         /// <summary>
-        /// Contient chaque consonne sans doublons contenu de la phrase 
+        /// Contient chaque consonne de la phrase 
         /// </summary>
-        public char[] eachConsonant = new char[20];
-
-        public Phrase()
-        {
-
-        }
+        /// 
+        string[,] eachConsonant;
 
         public Phrase(String somePhrase)
         {
             numberOfVowels = 0;
             numberOfConsonant = 0;
-            
+
             if (somePhrase.Length == 0)
             {
-                Console.WriteLine("Phrase invalide");
+                Console.WriteLine("Expression vide ");
             }
             else
             {
                 char[] splitedPhrase = new char[somePhrase.Length];
-                Console.WriteLine("Nombre de caractères : {0} \n", somePhrase.Count());
+                //Console.WriteLine("Nombre de caractères : {0} \n", somePhrase.Count());
                 int indexOFCounter = 0;
                 int v = 0,
-                    c = 0,
-                    evColonne = 0;
+                    c = 0;
+
+                /**
+                 * Pour des soucis de mémoire, on compte d'abords le nombre de voyelles et de consonnes
+                 * On construit un tableau avec le nombre de string pour recupérer les voyelles,
+                 * On construit un tableau avec le nombre de string pour recupérer les voyelles
+                 */
+                int h = 0; //Va servir à parcourir chaque caractère de la phrase
+                while (h < somePhrase.Length)
+                {
+                    if (tabVowels.Contains(somePhrase.ElementAt(h)))
+                    {
+                        numberOfVowels++;
+                    }
+                    else if (tabConsonant.Contains(somePhrase.ElementAt(h)))
+                    {
+                        numberOfConsonant++;
+                    }
+                    h++;
+                }
+
+
+                /**  On définie une taille pour eachVowel et eachConsonnant
+                 * le tableau eachVowel aura une lenght égale à numberOfVowel
+                 * le tableau eachConsonnant aura une lenght égale à numberOfConsonnant
+                 */
+                
+                eachVowel = new string[2, numberOfVowels];
+                eachConsonant = new string[2, numberOfConsonant];
 
                 //On place chaque caractère de somePhrase dans chaque cellule de splitedPhrase
-
                 while (indexOFCounter < somePhrase.Length)
                 {
                     splitedPhrase[indexOFCounter] = somePhrase.ElementAt(indexOFCounter);
-                    //Console.WriteLine("SplitedTable[{0}] = {1}", indexOFCounter, (splitedPhrase[indexOFCounter]));
 
-                    /**
+                    /** Remplissage eachVowels et eachConsonnant
+                     * ///////////////////////////////
                      * Si splitPhrase[indexOFCounter] une voyelle, on l'ajoute à eachVowel... 
-                     * si et seulement si eachVowel ne le contient pas
                      * Si splitPhrase[indexOFCounter] une consonne, on l'ajoute à eachConsonnant... 
-                     * si et seulement si eachConsonnant ne le contient pas
                      */
-                    if (tabVowels.Contains(splitedPhrase[indexOFCounter]))
+                if (tabVowels.Contains(splitedPhrase[indexOFCounter]))
                     {
-                        while (evColonne < tabVowels.Length) //On parcours eachVowels
-                        {
-                            Thread.Sleep(1000);
-                            //Voyelle contenu dans le eachVowels ? Non ==> on ajoute, Oui ==> on incrémente son nombre
-                            if (eachVowel[0, evColonne] == splitedPhrase[indexOFCounter])
-                            {
-                                eachVowel[1, evColonne]++;
-                                Console.WriteLine(eachVowel[1, evColonne]);
-                            }
-                            else if (eachVowel[0, evColonne] != (splitedPhrase[indexOFCounter]))
-                            {
-                                eachVowel[0, v] = splitedPhrase[indexOFCounter];
-                                Console.WriteLine("eachVowel[0, {0}] = {1} ", evColonne, eachVowel[0, evColonne]);
-                                v++;
-                            }
-
-                            evColonne++; //on passe à la colonne suivante donc la voyelle suivante du tableau tabVowels
-                        }
-                        numberOfVowels++;
-                        //evColonne = 0;
-                        //v = 0;
+                        //On enregistre la voyelle et son index
+                        eachVowel[0, v] = string.Concat(splitedPhrase[indexOFCounter]);
+                        eachVowel[1, v] = string.Concat(indexOFCounter); //Convertion de indexofCounter (int) en string
                         
+                        v++; //Passe à la cellule suivante de eachVowel
                     }
 
                     //Remplissage de eachConsonnant
                     else if (tabConsonant.Contains(splitedPhrase[indexOFCounter]))
                     {
-                        
-                        if (eachConsonant.Contains(splitedPhrase[indexOFCounter]))
-                        {
+                        eachConsonant[0, c] = string.Concat(splitedPhrase[indexOFCounter]);
+                        eachConsonant[1, c] = string.Concat(indexOFCounter); //Convertion de indexofCounter (int) en string
 
-                        }
-                        else if (!(eachConsonant.Contains(splitedPhrase[indexOFCounter])))
-                        {
-                            eachConsonant[c] = splitedPhrase[indexOFCounter];
-                            c++;
-                        }
-                        numberOfConsonant++;
+                        c++; //Passe à la cellule suivante de eachConsonant
                     }
 
-                    indexOFCounter++;
+                    indexOFCounter++; 
                 }
-                /*
-                //Recherche des voyelle                                             s
+            }
+         
+        }
+
+        public void showVowels()
+        {
+            int i = 0;
+            Console.WriteLine("\nNombre de voyelles : {0} \n", numberOfVowels);
+            Console.Write("Voulez-vous plus de détails ? [O/n] ");
+            char choicedetail = char.Parse((Console.ReadLine()).ToUpper()); //get user choice in a char
+            Console.WriteLine(" ");
+
+            //user want details
+            if (choicedetail == 'O')
+            {
+                Console.WriteLine("Voici les voyelles : ");
                 foreach (var item in eachVowel)
                 {
-                    if (tabVowels.Contains(item))
-                    {
-                        Console.WriteLine("Voyelle trouvée :  {0} ", item);
-                    }
+                    //Console.WriteLine("  {0} -- {1}(èm) lettre", item.)
+                    Console.Write(" {0} - ", item);
                 }
-                */
-
-                Console.WriteLine("\n");
-                foreach (var items in eachConsonant)
-                {
-                    if (tabConsonant.Contains(items))
-                    {
-                        Console.WriteLine("Consonne trouvée :  {0} ", items);
-                    }
-                }
-
-                Console.WriteLine("Nombre de voyelles = {0} ", numberOfVowels );
-                Console.WriteLine("Nombre de consonnes = {0} ", numberOfConsonant);
             }
+            else
+            {
+
+            }
+            
         }
 
-        private int getConsonant()
+        public void showConsonant()
         {
+            Console.WriteLine("\nNombre de consonnes : {0} \n", numberOfConsonant);
+            Console.Write("Voulez-vous plus de détails ? [O/n] ");
+            char choicedetail = char.Parse((Console.ReadLine()).ToUpper()); //get user choice in a char
+            Console.WriteLine(" ");
 
-            return 0;
-        }
+            //user want details
+            if (choicedetail == 'O')
+            {
+                Console.WriteLine("Voici les consonnes : ");
+                foreach (var item in eachConsonant)
+                {
+                    //Console.WriteLine("  {0} -- {1}(èm) lettre", item.)
+                    Console.Write(" {0} - ", item);
+                }
+            }
+            else
+            {
 
-        private int getVowels()
-        {
-
-            return 3;
+            }
         }
 
     }
