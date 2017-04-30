@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ namespace ChallengeApril2017
 {
     class Program
     {
+        public static SoundPlayer player = new SoundPlayer(@"../../RequiredFiles/Keyboard-Sound.wav");
+
         static void Main(string[] args)
         {
             showHead();
@@ -98,12 +101,18 @@ namespace ChallengeApril2017
             Console.Title = "****** HOW MANY VOWELS AND CONSONANTS ******";
             Console.WriteLine("CHALLENGE NUMBER 1\n");            
             Console.ForegroundColor = ConsoleColor.Yellow;
+            player.PlayLooping();
+
             string presentation = "\nCe programme compte le nombre de voyelles et de consonnes dans une expressions ! ";
             writeSlowly(presentation);
-            presentation = "\n -- Réalisé par : David H.";
+            presentation = "\n -- Réalisé par : david95thinkcode";
+            
+
             writeSlowly(presentation);
-            presentation = "\n -- Version 1.0";
-            Console.WriteLine(presentation);
+            
+            presentation = "\n -- Version 1.0\n";
+            writeSlowly(presentation);
+            player.Stop();
 
             Console.WriteLine("##################################################\n");
             Console.WriteLine("\nCe message s'effacera dans 3 secondes");
@@ -129,6 +138,7 @@ namespace ChallengeApril2017
             
             foreach (var item in texte)
             {
+                //player.PlayLooping();
                 Console.Write(item);
                 Thread.Sleep(50);
             }
