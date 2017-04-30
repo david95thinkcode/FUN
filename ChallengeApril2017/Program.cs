@@ -114,7 +114,7 @@ namespace ChallengeApril2017
             writeSlowly(presentation);
             player.Stop();
 
-            Console.WriteLine("##################################################\n");
+            Console.WriteLine("\n##################################################\n");
             Console.WriteLine("\nCe message s'effacera dans 3 secondes");
             Thread.Sleep(5000);
             
