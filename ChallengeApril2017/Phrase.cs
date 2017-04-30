@@ -136,12 +136,22 @@ namespace ChallengeApril2017
         {
             Console.WriteLine("\nNombre de voyelles : {0} \n", numberOfVowels);
             Console.Write("Voulez-vous plus de détails ? [O/n] : ");
-            char choicedetail = char.Parse((Console.ReadLine()).ToUpper()); //get user choice in a char
-            Console.WriteLine(" ");
+            try
+            {
+                char choicedetail = char.Parse((Console.ReadLine()).ToUpper()); //get user choice in a char
+                Console.WriteLine(" ");
+                //user want details
+                if (choicedetail == 'O')
+                    showEachVowel();
+            }
+            catch (System.FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Mauvaise entrée, vous devez obligatoire entrer une lettre !!");
+                Console.ResetColor();
+            }           
 
-            //user want details
-            if (choicedetail == 'O')
-                showEachVowel();            
+                       
         }
 
         /// <summary>
@@ -151,13 +161,21 @@ namespace ChallengeApril2017
         {
             Console.WriteLine("\nNombre de consonnes : {0} \n", numberOfConsonant);
             Console.Write("Voulez-vous plus de détails ? [O/n] : ");
-            char choicedetail = char.Parse((Console.ReadLine()).ToUpper()); //get user choice in a char
-            Console.WriteLine(" ");
+            try
+            {
+                char choicedetail = char.Parse((Console.ReadLine()).ToUpper()); //get user choice in a char
+                Console.WriteLine(" ");
 
-            //user want details
-            if (choicedetail == 'O')
-                showEachConsonant();
+                //user want details
+                if (choicedetail == 'O')
+                    showEachConsonant();
+            }
+            catch (System.FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Mauvaise entrée, vous devez obligatoire entrer une lettre !!");
+                Console.ResetColor();
+            }            
         }
-
     }
 }
