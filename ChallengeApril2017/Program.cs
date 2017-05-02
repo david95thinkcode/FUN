@@ -101,7 +101,16 @@ namespace ChallengeApril2017
             Console.Title = "****** HOW MANY VOWELS AND CONSONANTS ******";
             Console.WriteLine("CHALLENGE NUMBER 1\n");            
             Console.ForegroundColor = ConsoleColor.Yellow;
-            player.PlayLooping();
+            //On gère lorsque le fichier à jouer n'est pas trouvé
+            try
+            {
+                player.PlayLooping();
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                Console.WriteLine("\nFichier WAV non trouvé");
+            }
+            
 
             string presentation = "\nCe programme compte le nombre de voyelles et de consonnes dans une expressions ! ";
             writeSlowly(presentation);
@@ -138,7 +147,6 @@ namespace ChallengeApril2017
             
             foreach (var item in texte)
             {
-                //player.PlayLooping();
                 Console.Write(item);
                 Thread.Sleep(50);
             }
